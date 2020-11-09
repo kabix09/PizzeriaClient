@@ -22,12 +22,14 @@ class Pizzas extends Component{
     render()
     {
         return (
-            <div>
+            <div className="container" style={{maxWidth: '1300px'}}>
+                <div class="row">
                 {
                     this.state.pizzas.map(
                         element => <Pizza key={element.id} pizza={element}/>  
                     )
                 }
+                </div>
             </div>
             
         );
