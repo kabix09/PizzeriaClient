@@ -1,3 +1,4 @@
+import React from 'react';
 import {Card} from 'semantic-ui-react';
 import Pizza from "./pizza";
 
@@ -25,15 +26,16 @@ class Pizzas extends Component{
     render()
     {
         return (
-            //<h1 style={{textAlign: 'center'}}>Pizza menu:</h1>
-            <Card.Group centered>
-                {
-                    this.state.pizzas.map(
-                        element => <Pizza key={element.id} pizza={element}/>  
-                    )
-                }
-            </Card.Group>
-            
+            <React.Fragment>
+                <h1 style={{textAlign: 'center'}}>Pizzas menu:</h1>
+                <Card.Group centered>
+                    {
+                        this.state.pizzas.map(
+                            element => <Pizza key={element.id} pizza={element}/>  
+                        )
+                    }
+                </Card.Group>
+            </React.Fragment>   
         );
     };
 }

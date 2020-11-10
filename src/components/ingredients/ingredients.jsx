@@ -1,3 +1,4 @@
+import React from 'react';
 import {Card} from 'semantic-ui-react';
 import Ingredient from "./ingredient";
 
@@ -25,16 +26,16 @@ class Ingredients extends Component{
     render()
     {
         return (
-            //<h1 style={{textAlign: 'center'}}>Pizza menu:</h1>
-
-            <Card.Group centered>
-                {
-                    this.state.ingredients.map(
-                        element => <Ingredient key={element.id} ingredient={element}/>  
-                    )
-                }
-            </Card.Group>
-            
+            <React.Fragment>
+                <h1 style={{textAlign: 'center'}}>Ingredients list:</h1>
+                <Card.Group centered>
+                    {
+                        this.state.ingredients.map(
+                            element => <Ingredient key={element.id} ingredient={element}/>  
+                        )
+                    }
+                </Card.Group>
+            </React.Fragment>
         );
     };
 }
