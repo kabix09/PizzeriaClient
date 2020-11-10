@@ -1,3 +1,5 @@
+import { Card } from 'semantic-ui-react'
+
 const { Component } = require("react");
 
 class Pizza extends Component
@@ -9,20 +11,23 @@ class Pizza extends Component
     render()
     {
         return(
-            <div className="card" style={{width: '25rem', margin: '1rem'}}>
-                <div className="card-body">
-                    <h5 className="card-title">{this.state.pizza.name}</h5>
-                    <div className="card-subtitle mb-2 text-muted">Price: {this.state.pizza.price}</div>
-                    <div className="card-text">
+            <Card style={{height: '300px'}}>
+                <Card.Content>
+                    <Card.Header style={{textAlign: 'center'}}>{this.state.pizza.name}</Card.Header>
+                    <Card.Description>
                         Ingredients:
-                        <ul>
+                        <ul style={{maxHeight: '150px', overflow: 'auto'}}>
                             {this.state.pizza.ingredients.map(
                                 ingredient => <li>{ingredient}</li>
                             )}
                         </ul>
-                    </div>
-                </div>
-            </div>
+                    </Card.Description>
+                </Card.Content>
+                
+                <Card.Content extra>
+                    Price: {this.state.pizza.price}
+                </Card.Content> 
+            </Card>
         );
     }
 }

@@ -7,7 +7,7 @@ class App extends Component
   {
     return (
     <React.Fragment>
-          <h1 className="text-center">Pizza menu:</h1>
+          <h1 style={{textAlign: 'center'}}>Pizza menu:</h1>
           <Pizzas/>
     </React.Fragment>
   );};

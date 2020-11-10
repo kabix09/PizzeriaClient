@@ -1,5 +1,8 @@
-const { Component } = require("react");
+import {Card} from 'semantic-ui-react';
 import Pizza from "./pizza";
+
+const { Component } = require("react");
+
 
 class Pizzas extends Component{
 
@@ -22,15 +25,13 @@ class Pizzas extends Component{
     render()
     {
         return (
-            <div className="container" style={{maxWidth: '1300px'}}>
-                <div class="row">
+            <Card.Group centered>
                 {
                     this.state.pizzas.map(
                         element => <Pizza key={element.id} pizza={element}/>  
                     )
                 }
-                </div>
-            </div>
+            </Card.Group>
             
         );
     };
