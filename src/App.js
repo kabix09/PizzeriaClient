@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
-import Pizzas from './components/pizzas';
+import Home from './components/home/home';
+import NavBar from './components/navBar';
+import Pizzas from './components/pizzas/pizzas';
+import Ingredients from './components/ingredients/ingredients';
+import { BrowserRouter, Route, Router, Switch } from 'react-router-dom';
 
 class App extends Component 
 {
@@ -7,8 +11,14 @@ class App extends Component
   {
     return (
     <React.Fragment>
-          <h1 style={{textAlign: 'center'}}>Pizza menu:</h1>
-          <Pizzas/>
+      <BrowserRouter>
+        <NavBar/>
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/pizza" component={Pizzas}/>
+          <Route path="/ingredient" component={Ingredients}/>
+        </Switch>
+      </BrowserRouter>
     </React.Fragment>
   );};
 }
