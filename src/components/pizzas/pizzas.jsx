@@ -25,6 +25,7 @@ class Pizzas extends Component{
     render()
     {
         return (
+            //<h1 style={{textAlign: 'center'}}>Pizza menu:</h1>
             <Card.Group centered>
                 {
                     this.state.pizzas.map(
