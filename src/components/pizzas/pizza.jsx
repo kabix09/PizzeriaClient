@@ -4,9 +4,14 @@ const { Component } = require("react");
 
 class Pizza extends Component
 {    
-    state = {
-        pizza: this.props.pizza
-    };
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            pizza: this.props.pizza
+        };    
+    }
 
     render()
     {
@@ -18,7 +23,7 @@ class Pizza extends Component
                         Ingredients:
                         <ul style={{maxHeight: '150px', overflow: 'auto'}}>
                             {this.state.pizza.ingredients.map(
-                                ingredient => <li>{ingredient}</li>
+                                ingredient => <li key={Math.random()}>{ingredient}</li>
                             )}
                         </ul>
                     </Card.Description>

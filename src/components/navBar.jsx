@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class NavBar extends Component
 {
     state = {
-        link: ['home', 'pizza', 'ingredient']    
+        link: ['menu', 'koszyk']    
     }
 
     render()
@@ -13,7 +13,7 @@ class NavBar extends Component
             <nav>
                 <ul>
                     {this.state.link.map(
-                        element => <Link to={(element == "home"? '': element)}>
+                        element => <Link to={"/" + element} key={Math.random()}>
                                         <li>{element}</li>
                                     </Link>
                     )}
