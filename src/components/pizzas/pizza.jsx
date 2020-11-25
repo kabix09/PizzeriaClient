@@ -51,7 +51,7 @@ class Pizza extends Component
                 <Card.Content>
                     <Card.Header style={{textAlign: 'center'}}>{this.state.pizza.name}</Card.Header>
                     <Card.Description>
-                        Ingredients:
+                        Składniki:
                         <ul style={{maxHeight: '150px', overflow: 'auto'}}>
                             {pizzaIngredients.map(
                                 ingredient => ( ingredient !== undefined && <li key={Math.random()}>{ingredient.name}</li>)
@@ -61,7 +61,7 @@ class Pizza extends Component
                 </Card.Content>
                 
                 <Card.Content extra>
-                    Price: {this.state.pizza.price}
+                    Cena: {this.state.pizza.price} zl
                 </Card.Content> 
             </Card>
         );

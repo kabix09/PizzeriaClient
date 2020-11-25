@@ -5,12 +5,6 @@ const { Component } = require("react");
 
 
 class Box extends Component{
-
-    constructor()
-    {
-        super();
-    }
-
     render()
     {
         return (

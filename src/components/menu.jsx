@@ -49,9 +49,8 @@ class Menu extends Component{
         let currentPizza = this.state.pizzas.find(element => (element.name.toLowerCase() === this.props.match.params.name));
 
         return (
-            
             <React.Fragment>
-                <Container>
+                <Container style={{marginTop: "4rem"}}>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column width={5} >
