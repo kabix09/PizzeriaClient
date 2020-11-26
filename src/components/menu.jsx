@@ -72,7 +72,7 @@ class Menu extends Component{
                                 }
                                 <Card.Group centered>
                                     {
-                                        currentPizza !== undefined && 
+                                        currentPizza !== undefined &&
                                             <Pizza pizza={currentPizza} style={{margin: 'auto'}}/>
                                     }
                                 </Card.Group>

@@ -5,9 +5,17 @@ import NavBar from './components/navBar';
 import Home from './components/home/home';
 import Menu from './components/menu';
 
+import { store } from './store';
+import { initLabel } from './store/data/label/label.actions';
 
 class App extends Component 
 {
+  constructor(){
+    super();
+
+    store.dispatch(initLabel());
+  }
+
   render ()
   {
     return (

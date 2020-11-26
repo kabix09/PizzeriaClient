@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import { store } from '../store'
+
 class NavBar extends Component
 {
     constructor(props)
@@ -10,8 +12,9 @@ class NavBar extends Component
 
         this.state = {
             link: ['menu', 'koszyk'],
-            activeItem: 'home'
-        }
+            activeItem: store.getState().label.name
+        } 
+        console.log(this.state.activeItem);
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -22,7 +25,6 @@ class NavBar extends Component
     render()
     {
         const { activeItem } = this.state;
-
         return(
             <nav>
                 <Menu pointing secondary style={{width: "90%", margin: "auto", fontSize: "1.4rem"}}>
