@@ -4,7 +4,7 @@ import { watcher as initWatcher } from './init.saga';
 
 // single entry point to start all sagas at once
 export function* rootSaga() {
-    yield all([
-      initWatcher(),
-    ])
-  }
+  yield all([
+    initWatcher()
+  ])
+}

@@ -1,5 +1,5 @@
 import { Card } from 'semantic-ui-react'
-
+import { store } from '../../store';
 const { Component } = require("react");
 
 class Pizza extends Component
@@ -10,34 +10,8 @@ class Pizza extends Component
 
         this.state = {
             pizza: this.props.pizza,
-            ingredients: []
+            ingredients: store.getState().ingredients
         };    
-    }
-    componentDidMount()
-    {
-        this.fetchIngredients();
-    }
-
-    fetchIngredients()
-    {
-        const url = "http://localhost:3333/api/ingredient/";
-
-        fetch(url, {
-                    method: 'GET'
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }else {
-                    throw new Error(`Http error: ${response.status}`);
-                }
-            })
-            .then(data => {
-                this.setState({ingredients: data});
-            })
-            .catch(error => {
-                console.error(error)
-            });        
     }
 
     render()

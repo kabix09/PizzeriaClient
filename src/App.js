@@ -12,12 +12,16 @@ class App extends Component
 {
   constructor(){
     super();
+  }
 
+  componentDidMount()
+  {
     store.dispatch(initLabel());
   }
 
   render ()
   {
+    console.log(store.getState());
     return (
       <React.Fragment>
         <BrowserRouter>

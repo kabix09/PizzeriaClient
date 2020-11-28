@@ -3,7 +3,10 @@ import {Card, Container, Grid} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Box from './pizzas/box';
 import Pizza from './pizzas/pizza';
+import {store} from '../store';
 const { Component } = require("react");
+
+
 
 class Menu extends Component{
 
@@ -11,37 +14,10 @@ class Menu extends Component{
     {
         super();
         this.state = {
-            pizzas: [],
+            pizzas: store.getState().pizzas,
             name: ''
         };
-
-    }
-
-    componentDidMount()
-    {
-        this.fetchPizzasData();
-    }
-
-    fetchPizzasData()
-    {
-        const url = "http://localhost:3333/api/pizza/";
-
-        fetch(url, {
-                    method: 'GET'
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }else {
-                    throw new Error(`Http error: ${response.status}`);
-                }
-            })
-            .then(data => {
-                this.setState({pizzas: data});
-            })
-            .catch(error => {
-                console.error(error)
-            });        
+        console.log(this.state.pizzas);
     }
     
     render()
