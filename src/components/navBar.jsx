@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { store } from '../store'
+const mapStateToProps = (state) => {
+    return {
+        activeItem: state.label
+    }
+}
 
 class NavBar extends Component
 {
@@ -12,9 +17,8 @@ class NavBar extends Component
 
         this.state = {
             link: ['menu', 'koszyk'],
-            activeItem: store.getState().label.name
+            activeItem: this.props.activeItem.name
         } 
-        console.log(this.state.activeItem);
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -24,7 +28,8 @@ class NavBar extends Component
     */
     render()
     {
-        const { activeItem } = this.state;
+        const activeItem = this.state.activeItem === "home" ? this.props.activeItem.name : this.state.activeItem;   // ?!?!?!
+
         return(
             <nav>
                 <Menu pointing secondary style={{width: "90%", margin: "auto", fontSize: "1.4rem"}}>
@@ -50,4 +55,4 @@ class NavBar extends Component
     //{`${element}`}
 }
 
-export default NavBar;
+export default connect(mapStateToProps)(NavBar);

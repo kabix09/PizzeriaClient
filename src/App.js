@@ -21,14 +21,13 @@ class App extends Component
 
   render ()
   {
-    console.log(store.getState());
     return (
       <React.Fragment>
         <BrowserRouter>
           <NavBar/>
           <Switch>
             <Route path="/" exact component={Home}/>
-            <Route path="/menu/:name?" render={(props ) => (<Menu {...props} key={Math.random()}/>)}/>
+            <Route path="/menu/:name?" render={(props) => (<Menu {...props} key={Math.random()}/>)}/>
             <Route path="/koszyk" component={Home}/>
           </Switch>
         </BrowserRouter>

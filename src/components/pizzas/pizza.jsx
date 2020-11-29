@@ -1,6 +1,13 @@
 import { Card } from 'semantic-ui-react'
 import { store } from '../../store';
+import { connect } from 'react-redux';
 const { Component } = require("react");
+
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.ingredients
+    }
+}
 
 class Pizza extends Component
 {    
@@ -9,16 +16,19 @@ class Pizza extends Component
         super(props);
 
         this.state = {
-            pizza: this.props.pizza,
-            ingredients: store.getState().ingredients
+            pizza: this.props.pizza
         };    
     }
 
     render()
     {
-        const pizzaIngredients = this.state.pizza.ingredients.map((pizzaIngredient) => {
-            return this.state.ingredients.find(ingredient => ingredient.id === pizzaIngredient);
-        });
+        const pizzaIngredients =
+            (this.props.ingredients !== undefined  && this.state.pizza !== undefined) ? 
+                this.state.pizza.ingredients.map((pizzaIngredient) => {
+                    return this.props.ingredients.find(ingredient => ingredient.id === pizzaIngredient);
+                }) : undefined;
+        
+    
         
         return(
             <Card style={{height: '300px'}}>
@@ -27,8 +37,10 @@ class Pizza extends Component
                     <Card.Description>
                         Składniki:
                         <ul style={{maxHeight: '150px', overflow: 'auto'}}>
-                            {pizzaIngredients.map(
-                                ingredient => ( ingredient !== undefined && <li key={Math.random()}>{ingredient.name}</li>)
+                            {
+                                pizzaIngredients !== undefined &&
+                                    pizzaIngredients.map(
+                                        ingredient => ( ingredient !== undefined && <li key={Math.random()}>{ingredient.name}</li>)
                             )}
                         </ul>
                     </Card.Description>
@@ -42,4 +54,4 @@ class Pizza extends Component
     }
 }
 
-export default Pizza;
+export default connect(mapStateToProps)(Pizza);
