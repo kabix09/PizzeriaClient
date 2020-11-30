@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Container, Grid} from 'semantic-ui-react';
+import {Card, Container, Grid, Segment, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Box from './pizzas/box';
@@ -28,26 +28,42 @@ class Menu extends Component {
                         <Grid.Row>
                             <Grid.Column width={5} >
                                 <Card.Group centered>
-                                    <h1 style={{textAlign: 'center'}}>Pizzas menu:</h1>
+                                    <Header as='h1' style={{textAlign: 'center'}}>Pizzas menu:</Header>
                                     {
-                                        this.props.pizzas !== undefined && this.props.pizzas.length > 0 &&
+                                        (this.props.pizzas !== undefined && this.props.pizzas.length > 0) ? 
                                             this.props.pizzas.map(
                                                 element =>  <Link to={`/menu/`+element.name.toLowerCase()} key={Math.random()} style={{margin: '5px'}}>
                                                                 <Box name={element.name}/>
                                                             </Link>
-                                            )
+                                            ): 
+                                            <Segment raised style={{ width: '20rem', height: '25rem', display: 'flex', justifyContent: 'space-around', alignItems: 'center',
+                                                                     WebkitBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
+                                                                     MozBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
+                                                                     boxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)' }}>
+                                                <Header as='h2'>
+                                                    Pizza no loaded
+                                                </Header>
+                                            </Segment>
                                     }    
                                 </Card.Group>
                             </Grid.Column>
 
                             <Grid.Column width={11}>
                                 {
-                                    <h1 style={{textAlign: 'center'}}>Pizza:</h1>
+                                    <Header as='h1' style={{textAlign: 'center'}}>Pizza:</Header>
                                 }
                                 <Card.Group centered>
                                     {
-                                        currentPizza !== undefined &&
-                                            <Pizza pizza={currentPizza} style={{margin: 'auto'}}/>
+                                        (currentPizza !== undefined) ?
+                                            <Pizza pizza={currentPizza} style={{margin: 'auto'}}/>:
+                                            <Segment raised style={{ width: '25rem', height: '18rem', marginTop: '5rem', display: 'flex', justifyContent: 'space-around', alignItems: 'center',
+                                                                        WebkitBoxShadow: '10px 10px 5px 0px rgba(0,0,0,0.3)', 
+                                                                        MozBoxShadow: '10px 10px 5px 0px rgba(0,0,0,0.3)', 
+                                                                        boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.3)' }}>
+                                                <Header as='h2'>
+                                                    No Pizza selected
+                                                </Header>
+                                            </Segment>
                                     }
                                 </Card.Group>
                             </Grid.Column>

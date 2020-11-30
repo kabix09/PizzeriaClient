@@ -1,5 +1,4 @@
 import { Card } from 'semantic-ui-react'
-import { store } from '../../store';
 import { connect } from 'react-redux';
 const { Component } = require("react");
 
