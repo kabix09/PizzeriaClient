@@ -1,7 +1,8 @@
 import { Card, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { addProduct } from '../../store/data/basket/basket.actions';
-import {store} from '../../store';
+import { store } from '../../store';
+import { countPrice } from '../../store/data/price/price.actions';
 
 const { Component } = require("react");
 
@@ -50,7 +51,10 @@ class Pizza extends Component
                 
                 <Card.Content extra>
                     Cena: {this.state.pizza.price} zl
-                    <Button inverted primary floated="right" onClick={() => {store.dispatch(addProduct(this.state.pizza))}}>
+                    <Button inverted primary floated="right" onClick={() => {
+                        store.dispatch(addProduct(this.state.pizza));
+                        store.dispatch(countPrice(this.state.pizza.price));
+                    }}>
                         Dodaj
                     </Button>                 
                 </Card.Content> 
