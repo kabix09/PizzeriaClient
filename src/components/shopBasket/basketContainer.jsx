@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {Button, Card, Container, Grid , Label} from 'semantic-ui-react';
 import BasketElement from './basketElement';
 import { store } from '../../store';
-import * as basketActions from '../../store/data/basket/basket.actions' 
+import * as basketActions from '../../store/data/basket/basket.actions'; 
+import * as priceActions from '../../store/data/price/price.actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -44,9 +45,17 @@ class BasketContainer extends Component {
                                 element => <div key={Math.random()} style={{ width: '50%', display: 'flex', flexWrap: 'no-wrap', alignItems: 'center'}}>
                                                 <BasketElement product={element.value} />
                                                 
-                                                <Button onClick={ () => store.dispatch(basketActions.decrement(element.key))}>-</Button>
+                                                <Button onClick={ () => {
+                                                    store.dispatch(basketActions.decrement(element.key)); 
+                                                    store.dispatch(priceActions.countPrice(-1 * element.value.price));
+                                                }}>-</Button>
+
                                                 <Label color={'violet'}>{element.count}</Label>
-                                                <Button onClick={ () => store.dispatch(basketActions.increment(element.key))}>+</Button>
+                                                
+                                                <Button onClick={ () => {
+                                                    store.dispatch(basketActions.increment(element.key));
+                                                    store.dispatch(priceActions.countPrice(element.value.price));
+                                                }}>+</Button>
                                                 
                                             </div>
 

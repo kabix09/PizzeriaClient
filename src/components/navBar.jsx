@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu , Input, Label, Icon} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
     return {
-        activeItem: state.label
+        activeItem: state.label,
+        price: state.price
     }
 }
 
@@ -29,7 +30,7 @@ class NavBar extends Component
     render()
     {
         const activeItem = this.state.activeItem === "home" ? this.props.activeItem.name : this.state.activeItem;   // ?!?!?!
-
+        
         return(
             <nav>
                 <Menu pointing secondary style={{width: "90%", margin: "auto", fontSize: "1.4rem"}}>
@@ -48,11 +49,26 @@ class NavBar extends Component
                                         />
                         )
                     }
+                    <Menu.Menu position='right'>
+                        <Menu.Item>
+                            <Input 
+                                size='mini'
+                                iconPosition='left'
+                                labelPosition='right'
+                                type='text'
+                                readOnly='readonly'
+                                placeholder='Price'
+                            >
+                                <Icon name='shopping basket' color='teal'/>
+                                <input style={{width: '100px'}} value={`${this.props.price.value === undefined ? '00.00' : this.props.price.value}`}/>
+                                <Label>zl</Label>
+                            </Input>
+                        </Menu.Item>
+                    </Menu.Menu>
                 </Menu>
             </nav>
         );
     }
-    //{`${element}`}
 }
 
 export default connect(mapStateToProps)(NavBar);
