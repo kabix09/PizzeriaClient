@@ -7,6 +7,7 @@ import Menu from './components/menu';
 
 import { store } from './store';
 import { initLabel } from './store/data/label/label.actions';
+import BasketContainer from './components/shopBasket/basketContainer';
 
 class App extends Component 
 {
@@ -28,7 +29,7 @@ class App extends Component
           <Switch>
             <Route path="/" exact component={Home}/>
             <Route path="/menu/:name?" render={(props) => (<Menu {...props} key={Math.random()}/>)}/>
-            <Route path="/koszyk" component={Home}/>
+            <Route path="/koszyk" component={BasketContainer}/>
           </Switch>
         </BrowserRouter>
       </React.Fragment>
