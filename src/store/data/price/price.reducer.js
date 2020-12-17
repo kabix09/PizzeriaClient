@@ -1,4 +1,4 @@
-import * as priceActions from './price.constats';
+import * as priceActions from './price.constats'; 
 
 const initState = {
     value: 0
@@ -7,9 +7,9 @@ const initState = {
 const reducer = (state = initState, action) => {
     switch(action.type)
     {
-        case priceActions.COUNT_PRICE:
-        {
-            return Object.assign({}, state, {value: state.value + action.payload});
+        case priceActions.SET_PRICE:
+        {   //console.log(action.payload);
+            return Object.assign({}, state, {value: action.payload});
         }
 
         default:

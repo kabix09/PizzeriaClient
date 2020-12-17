@@ -1,1 +1,1 @@
-export const COUNT_PRICE = "countPrice";
+export const SET_PRICE = "setPrice";

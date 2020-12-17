@@ -1,6 +1,6 @@
 import * as priceActions from './price.constats';
 
-export const countPrice = price => ({
-    type: priceActions.COUNT_PRICE,
+export const setPrice = price => ({
+    type: priceActions.SET_PRICE,
     payload: price
-});
+})
