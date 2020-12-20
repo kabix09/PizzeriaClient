@@ -1,5 +1,8 @@
-import { Card } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+import { store } from '../../store';
+import * as basketActions from '../../store/data/basket/basket.actions'; 
+
 const { Component } = require("react");
 
 const mapStateToProps = (state) => {
@@ -47,6 +50,11 @@ class Pizza extends Component
                 
                 <Card.Content extra>
                     Cena: {this.state.pizza.price} zl
+                    <Button inverted primary floated="right" onClick={() => {
+                        store.dispatch(basketActions.addProduct(this.state.pizza));
+                    }}>
+                        Dodaj
+                    </Button>                 
                 </Card.Content> 
             </Card>
         );
