@@ -3,38 +3,86 @@ import { connect } from 'react-redux';
 import {Button, Container , Label} from 'semantic-ui-react';
 import BasketElement from './basketElement';
 import { store } from '../../store';
+import Loader from 'react-loader-spinner';
 import * as basketActions from '../../store/data/basket/basket.actions'; 
 
 const mapStateToProps = (state) => {
     return {
-        basket: state.basket
+        basket: state.basket,
+        price: state.price
     }
 }
 
 class BasketContainer extends Component {
 
-    /* fixed reducing function from StackOverflow
-        https://stackoverflow.com/questions/5732043/javascript-reduce-on-array-of-objects
-    */
-    countByProperty(inputArray, key) { 
-        return inputArray.reduce(
-                (result, element) => { 
-                    let value = key instanceof Function ? key(element) : element[key]; 
-                    let object = result.find((r) => r && r.key === value)
+    constructor()
+    {
+        super()
 
-                    if (object) 
-                    { 
-                        result.find(el => el.key === value).count++;    /* increment amount */
-                    } else 
-                    { 
-                        result.push({ key: value, value: element, count: 1});   /* add new element */
-                    }
+        this.state = {
+            isLoading: false
+        }
+    }
 
-                    return result; 
-                }, []); 
+    buildOrder()
+    {
+        const pizzas = this.props.basket.reduce(
+            (result, currentElement, index, inputArray) => {
+                for(let i=0; i < currentElement.count; i++)
+                {
+                    result = result.concat([currentElement.value]);
+                }
+                return result;
+            }, []
+        );
+
+        const sauces = this.props.sauce ? this.props.sauce : undefined;
+        const price = this.props.price.value;
+
+        if(sauces !== undefined)
+            return {pizza: pizzas, sauce: sauces, total: price};
+        else
+            return {pizza: pizzas, total: price};
+    }
+
+    submitOrder = e => 
+    {
+        // prevent default invoking
+        e.preventDefault();
+
+        this.setState({isLoading: true});
+
+        // build order object
+        const order = this.buildOrder();
+
+        // set requst 
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(order)
+        };
+
+        // execute order request 
+        fetch('http://localhost:3333/api/order', requestOptions)
+            .then(async response => {
+                const data = await response.json();
+
+                if(!response.ok)
+                {
+                    return Promise.reject(data.status + " - " + data.message)
+                }
+
+                this.setState({isLoading: false, status: response.status, message: data.message});
+                console.log(this.state);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     render(){
+        const {isLoading} = this.state;
+
         return (
             <React.Fragment>
                 <Container style={{marginTop: "4rem"}}>
@@ -58,6 +106,13 @@ class BasketContainer extends Component {
 
                             ):<div>no elements</div>
                     }
+                </Container>
+                <Container>
+                    <Button onClick={this.submitOrder} disabled={isLoading}>
+                    {
+                        isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />:<span>Zamów</span>
+                    }
+                    </Button>
                 </Container>
             </React.Fragment>
         );
