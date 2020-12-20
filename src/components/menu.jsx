@@ -2,8 +2,9 @@ import React from 'react';
 import {Card, Container, Grid, Segment, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Box from './pizzas/box';
+import Label from './pizzas/label';
 import Pizza from './pizzas/pizza';
+import Loader from 'react-loader-spinner';
 const { Component } = require("react");
 
 const mapStateToProps = (state) => {
@@ -33,16 +34,14 @@ class Menu extends Component {
                                         (this.props.pizzas !== undefined && this.props.pizzas.length > 0) ? 
                                             this.props.pizzas.map(
                                                 element =>  <Link to={`/menu/`+element.name.toLowerCase()} key={Math.random()} style={{margin: '5px'}}>
-                                                                <Box name={element.name}/>
+                                                                <Label name={element.name}/>
                                                             </Link>
                                             ): 
                                             <Segment raised style={{ width: '20rem', height: '25rem', display: 'flex', justifyContent: 'space-around', alignItems: 'center',
                                                                      WebkitBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
                                                                      MozBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
                                                                      boxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)' }}>
-                                                <Header as='h2'>
-                                                    Pizza no loaded
-                                                </Header>
+                                                <Loader type="Circles" color="#00BFFF" height={80} width={80}/>
                                             </Segment>
                                     }    
                                 </Card.Group>

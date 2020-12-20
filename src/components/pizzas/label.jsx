@@ -4,7 +4,7 @@ import {Card} from 'semantic-ui-react';
 const { Component } = require("react");
 
 
-class Box extends Component{
+class Label extends Component{
     render()
     {
         return (
@@ -19,4 +19,4 @@ class Box extends Component{
     };
 }
 
-export default Box;
+export default Label;
