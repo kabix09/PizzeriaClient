@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Button, Container , Label} from 'semantic-ui-react';
+import {Button, Card, Container, Grid} from 'semantic-ui-react';
 import BasketElement from './basketElement';
-import { store } from '../../store';
+
 import Loader from 'react-loader-spinner';
-import * as basketActions from '../../store/data/basket/basket.actions'; 
 
 const mapStateToProps = (state) => {
     return {
@@ -84,37 +83,27 @@ class BasketContainer extends Component {
         const {isLoading} = this.state;
 
         return (
-            <React.Fragment>
-                <Container style={{marginTop: "4rem"}}>
-                    {
-                        (this.props.basket !== undefined && this.props.basket.length > 0) ?
-                            this.props.basket.map(
-                                element => <div key={Math.random()} style={{ width: '50%', display: 'flex', flexWrap: 'no-wrap', alignItems: 'center'}}>
-                                                <BasketElement product={element.value} />
-                                                
-                                                <Button onClick={ () => {
-                                                    store.dispatch(basketActions.decrement(element.key)); 
-                                                }}>-</Button>
-
-                                                <Label color={'violet'}>{element.count}</Label>
-                                                
-                                                <Button onClick={ () => {
-                                                    store.dispatch(basketActions.increment(element.key));
-                                                }}>+</Button>
-                                                
-                                            </div>
-
-                            ):<div>no elements</div>
-                    }
-                </Container>
-                <Container>
-                    <Button onClick={this.submitOrder} disabled={isLoading}>
-                    {
-                        isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />:<span>Zamów</span>
-                    }
-                    </Button>
-                </Container>
-            </React.Fragment>
+            <Container>
+                <Grid columns={2}>
+                    <Grid.Column width={7} style={{marginTop: '4rem'}}>
+                        <Card.Group>
+                        {
+                            (this.props.basket !== undefined && this.props.basket.length > 0) ?
+                                this.props.basket.map(
+                                    element => <BasketElement product={element} key={Math.random()}/>                                                        
+                                ):<div>no elements</div>
+                        }
+                        </Card.Group>
+                    </Grid.Column>
+                    <Grid.Column style={{marginTop: '4rem'}}>
+                        <Button onClick={this.submitOrder} disabled={isLoading}>
+                        {
+                            isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />:<span>Zamów</span>
+                        }
+                        </Button>
+                    </Grid.Column>
+                </Grid>
+            </Container>
         );
     }
 }
