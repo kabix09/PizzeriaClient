@@ -100,7 +100,12 @@ class PersonalizeBox extends Component {
                             <input style={{width: '80px'}} value={this.state.pizza.price}/>
                             <Label>zl</Label>
                         </Input>
-                        <Button primary floated='right'>
+                        <Button primary floated='right'
+                            onClick={(e) => {
+                                this.props.addToBasket(this.state.pizza, e); 
+                                this.props.close()
+                            }}
+                        >
                             Dodaj
                         </Button>
                 </Card.Content>
