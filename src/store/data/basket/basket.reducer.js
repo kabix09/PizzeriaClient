@@ -10,11 +10,13 @@ function put(inputArray, newElement)
 {
     let newArray = inputArray.slice(0);
     
-    if (inputArray.find(element => element.key === newElement.id) !== undefined) 
+    // if id and ingredients list are the same
+    if (inputArray.find(element => (element.key === newElement.id && element.value.ingredients.equals(newElement.ingredients))) !== undefined) 
     { 
         newArray.find(el => el.key === newElement.id).count++;    /* increment amount */
     } else 
     { 
+        console.log("push");
         newArray.push({ key: newElement['id'], value: newElement, count: 1});   /* add new element */
     }
 

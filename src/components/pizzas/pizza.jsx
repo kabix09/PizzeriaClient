@@ -29,6 +29,11 @@ class Pizza extends Component
                 return this.props.ingredients.find(ingredient => ingredient.id === pizzaIngredient);
             }) : undefined;
     }
+    
+    addToBasket = (pizza, e) => {
+        e.preventDefault();
+        store.dispatch(basketActions.addProduct(pizza));
+    }
 
     PersonalizeModal = () => {
         return(
@@ -42,7 +47,12 @@ class Pizza extends Component
                     </a>
                 }
             >
-                <PersonalizeBox pizza={this.props.pizza} ingredients={this.props.ingredients}/>
+                <PersonalizeBox 
+                    pizza={this.props.pizza} 
+                    ingredients={this.props.ingredients} 
+                    addToBasket={this.addToBasket} 
+                    close={() => this.setState({modalState: false})}
+                />
             </Modal>
         );
     }
@@ -75,8 +85,9 @@ class Pizza extends Component
                 
                 <Card.Content extra>
                     Cena: {this.props.pizza.price} zl
-                    <Button inverted primary floated="right" onClick={() => {
-                        store.dispatch(basketActions.addProduct(this.props.pizza));
+
+                    <Button inverted primary floated="right" onClick={(e) => {
+                        this.addToBasket(this.props.pizza, e);
                     }}>
                         Dodaj
                     </Button>                 

@@ -21,7 +21,7 @@ class PersonalizeBox extends Component {
         if(
             this.state.pizza.ingredients.filter(element => element == ingredient.id).length < 4
         ){
-            const newPizza = this.state.pizza;
+            const newPizza = {...this.state.pizza};
             newPizza.ingredients = [...this.state.pizza.ingredients, ingredient.id];
             newPizza.price += ingredient.price
     
@@ -41,7 +41,7 @@ class PersonalizeBox extends Component {
         if(
             this.state.pizza.ingredients.filter(element => element == ingredient.id).length > 0
         ){
-            const newPizza = this.state.pizza;
+            const newPizza = {...this.state.pizza};
 
             // remove exacly one element
             const index = this.state.pizza.ingredients.indexOf(ingredient.id);
@@ -103,7 +103,7 @@ class PersonalizeBox extends Component {
                         <Button primary floated='right'
                             onClick={(e) => {
                                 this.props.addToBasket(this.state.pizza, e); 
-                                this.props.close()
+                                this.props.close();
                             }}
                         >
                             Dodaj
