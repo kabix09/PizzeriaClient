@@ -16,7 +16,6 @@ function put(inputArray, newElement)
         newArray.find(el => el.key === newElement.id).count++;    /* increment amount */
     } else 
     { 
-        console.log("push");
         newArray.push({ key: newElement['id'], value: newElement, count: 1});   /* add new element */
     }
 
@@ -26,26 +25,26 @@ function put(inputArray, newElement)
     return newArray;
 }
 
-function increment(inputArray, key)
+function increment(inputArray, product)
 {
     let newArray = inputArray.slice(0);
     
-    newArray.find(element => element.key === key).count++;
+    newArray.find(element => element.key === product.key && element.value.ingredients.equals(product.value.ingredients)).count++;
 
     saveState(newArray, 'basket');
 
     return newArray;    
 }
 
-function decrement(inputArray, key)
+function decrement(inputArray, product)
 {
     let newArray = inputArray.slice(0);
 
-    let finded = newArray.find(element => element.key === key);
+    let finded = newArray.find(element => element.key === product.key && element.value.ingredients.equals(product.value.ingredients));
 
     if(finded !== undefined && finded.count === 1)
     {
-        newArray = newArray.filter(element => {return element.key !== finded.key});
+        newArray = newArray.filter(element => {return (element.key !== finded.key || false === element.value.ingredients.equals(finded.value.ingredients))});
     }else
         finded.count--; 
         

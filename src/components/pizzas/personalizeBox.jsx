@@ -11,7 +11,6 @@ class PersonalizeBox extends Component {
         this.state = {
             pizza: this.props.pizza
         }
-        console.log(this.props);
     }
 
     addIngredient = (ingredient, e) => 
@@ -19,7 +18,7 @@ class PersonalizeBox extends Component {
         e.preventDefault();
         
         if(
-            this.state.pizza.ingredients.filter(element => element == ingredient.id).length < 4
+            this.state.pizza.ingredients.filter(element => element === ingredient.id).length < 4
         ){
             const newPizza = {...this.state.pizza};
             newPizza.ingredients = [...this.state.pizza.ingredients, ingredient.id];
@@ -28,10 +27,7 @@ class PersonalizeBox extends Component {
             this.setState({
                 pizza: newPizza
               })
-    
-            console.log(this.state.pizza);
         }
-        
     }
 
     removeIngredient = (ingredient, e) =>
@@ -39,7 +35,7 @@ class PersonalizeBox extends Component {
         e.preventDefault();
         
         if(
-            this.state.pizza.ingredients.filter(element => element == ingredient.id).length > 0
+            this.state.pizza.ingredients.filter(element => element === ingredient.id).length > 0
         ){
             const newPizza = {...this.state.pizza};
 
@@ -54,8 +50,6 @@ class PersonalizeBox extends Component {
             this.setState({
                 pizza: newPizza
             })
-
-            console.log(this.state.pizza);
         }
     }
 

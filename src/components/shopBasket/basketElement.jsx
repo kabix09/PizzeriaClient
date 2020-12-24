@@ -18,11 +18,11 @@ class BasketElement extends Component{
                 </Card>
                     <Button.Group compact floated='right'>
                         <Button onClick={ () => {
-                            store.dispatch(basketActions.decrement(this.props.product.key)); 
+                            store.dispatch(basketActions.decrement(this.props.product)); 
                         }}>-</Button>
                         <Button.Or text={this.props.product.count}/>
                         <Button color='violet' onClick={ () => {
-                            store.dispatch(basketActions.increment(this.props.product.key));
+                            store.dispatch(basketActions.increment(this.props.product));
                         }}>+</Button>
                     </Button.Group>
             </Container>
