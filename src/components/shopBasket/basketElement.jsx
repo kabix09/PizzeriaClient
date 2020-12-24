@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, Button , Label, Container} from 'semantic-ui-react';
+import {Card, Button, Container} from 'semantic-ui-react';
 import { store } from '../../store';
 import * as basketActions from '../../store/data/basket/basket.actions'; 
 
@@ -16,20 +16,15 @@ class BasketElement extends Component{
                         </Card.Description>
                     </Card.Content>
                 </Card>
- 
-                    <Button compact style={{ margin: '0'}}
-                        onClick={ () => {
+                    <Button.Group compact floated='right'>
+                        <Button onClick={ () => {
                             store.dispatch(basketActions.decrement(this.props.product.key)); 
-                    }}>-</Button>
-
-                    <Label color={'violet'}>{this.props.product.count}</Label>
-                    
-                    <Button compact style={{ margin: '0' }}
-                        onClick={ () => {
+                        }}>-</Button>
+                        <Button.Or text={this.props.product.count}/>
+                        <Button color='violet' onClick={ () => {
                             store.dispatch(basketActions.increment(this.props.product.key));
-                    }}>+</Button>
-   
-                
+                        }}>+</Button>
+                    </Button.Group>
             </Container>
         );
     }
