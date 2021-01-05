@@ -2,10 +2,7 @@ import { Component } from "react";
 import {Card, Button} from 'semantic-ui-react';
 
 class IngredientLabel extends Component{
-    constructor(props)
-    {
-        super(props);
-    }
+
     render(){
         return(
             <Card style={{width: '12rem'}}>

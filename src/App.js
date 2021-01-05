@@ -11,9 +11,6 @@ import BasketContainer from './components/shopBasket/basketContainer';
 
 class App extends Component 
 {
-  constructor(){
-    super();
-  }
 
   componentDidMount()
   {
