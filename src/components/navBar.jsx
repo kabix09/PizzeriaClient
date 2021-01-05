@@ -6,10 +6,10 @@ import { store } from '../store';
 import { setPrice } from '../store/data/price/price.actions';
 
 //selector
-function countInitialPrice(state)
+function countInitialPrice(basket) 
 {
-    return state.basket.length > 0 ?
-        state.basket.reduce(
+    return basket.length > 0 ?
+        basket.reduce(
             (currentValue, currentItem) =>
             {
                 return (currentItem.count * currentItem.value.price) + currentValue; 
@@ -20,7 +20,7 @@ function countInitialPrice(state)
 const mapStateToProps = (state) => {
     return {
         activeItem: state.label,
-        price: countInitialPrice(state)
+        price: countInitialPrice(state.basket)
     }
 }
 
