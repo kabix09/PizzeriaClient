@@ -7,7 +7,5 @@ export const initLabel = () => ({
 // Action creator
 export const setLabel = label => ({
     type: labelActions.SET_LABEL,
-    payload: {
-        name: label
-    }
+    payload: label
 });

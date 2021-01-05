@@ -6,15 +6,14 @@ import Home from './components/home/home';
 import Menu from './components/menu';
 
 import { store } from './store';
-import { initLabel } from './store/data/label/label.actions';
+import { initialize } from './store/init.actions';
 import BasketContainer from './components/shopBasket/basketContainer';
 
 class App extends Component 
 {
-
   componentDidMount()
   {
-    store.dispatch(initLabel());
+    store.dispatch(initialize());
   }
 
   render ()

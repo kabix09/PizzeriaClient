@@ -14,7 +14,7 @@ const reducer = (state = initState, action) => {
 
         case labelActions.SET_LABEL:
         {
-            return Object.assign({}, state, {name: action.payload.name});
+            return Object.assign({}, state, {name: action.payload});
         }
 
         default:

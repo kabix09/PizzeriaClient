@@ -10,7 +10,7 @@ const reducer = (state = initState.error, action) => {
         case errorActions.FETCH_DATA_ERROR:
         {
             console.log(action);
-            return Object.assign([], state, action.payload.error);
+            return Object.assign([], state, action.payload);
         }   
 
         default:

@@ -1,10 +1,10 @@
 import * as pizzaActions from './pizza.constants.js';
 
+// Action creator
 export const initPizzas = () => ({
     type: pizzaActions.INIT_PIZZAS
 });
 
-// Action creator
 export const setPizzas = pizzas => ({
     type: pizzaActions.SET_PIZZAS,
     payload: pizzas
@@ -15,10 +15,3 @@ export const fetchPizzas = {
     source: 'http://localhost:3333/api/pizza',
     onSuccess: setPizzas
 };
-
-export const getPizzaByName = name => ({
-    type: pizzaActions.FETCH_BY_NAME,
-    payload: {
-        name: name
-    }
-});
