@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup  from 'yup';
 import * as UI from 'semantic-ui-react';
 
 class OrderForm extends Component{
@@ -18,41 +19,32 @@ class OrderForm extends Component{
         }
     }
 
-    validate = (values) => {
-        let errors = {};
+    orderValidationShema = () => Yup.object().shape({
+        name: Yup.string()
+          .min(3, "Name is too short!")
+          .max(15, "Name is too long!")
+          .required("Name is required"),
+      
+        surename: Yup.string()
+          .min(5, "Surename is too short!")
+          .max(30, "Surename is too long!")
+          .required("Surename is required"),
+      
+        email: Yup.string()
+            .email()
+            .required("Email is required"),
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-        const phoneNumberRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/;
+        phoneNumber: Yup.string()
+          .required("Phone number is required")
+          .matches(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/, "Invalid phone number"),
+      
+        town: Yup.string()
+          .required("Town is required"),
         
-        if(values.name === ""){
-            errors.name = "Name is required";
-        }
+        address: Yup.string()
+            .required("Address is required")
+      });
 
-        if(values.surename === ""){
-            errors.surename = "Surename is required";
-        }
-
-        if (!values.email) {
-          errors.email = "Email is required";
-        } else if (!emailRegex.test(values.email)) {
-          errors.email = "Invalid Email";
-        }
-        if (!values.phoneNumber) {
-            errors.phoneNumber = "Phone number is required";
-        } else if (!phoneNumberRegex.test(values.phoneNumber)) {
-            errors.phoneNumber = "Invalid phone number";
-        }
-
-        if(values.town === ""){
-            errors.town = "Town is required";
-        }
-
-        if(values.address === ""){
-            errors.address = "Full address is required";
-        }
-
-        return errors;
-    };
       
     submitForm = (formValues) => {
         console.log(formValues);
@@ -64,8 +56,7 @@ class OrderForm extends Component{
             
             <Formik
                 initialValues = {this.state.initialValues}
-                validate = {(values) => this.validate(values)}
-                isSubmitting = {false}
+                validationSchema={this.orderValidationShema}
                 onSubmit = {async (fields) => {this.submitForm(fields);}}
             >
                 
