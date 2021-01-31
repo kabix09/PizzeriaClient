@@ -68,8 +68,8 @@ class PersonalizeBox extends Component {
                     <Card.Description style={{paddingTop: '0.5rem'}}>
                         <Card.Group style={{fontSize: '0.85rem'}} centered>
                         {
-                            this.props.ingredients &&
-                            this.props.ingredients.map(ingredeint => 
+                            this.props.ingredients.list &&
+                            this.props.ingredients.list.map(ingredeint => 
                                 <IngerdeitnLabel key={Math.random()}  
                                     ingredient={ingredeint} 
                                     amount={

@@ -16,15 +16,14 @@ class BasketElement extends Component{
         return (this.props.ingredients !== undefined)? 
                 this.props.product.value.ingredients.map(
                     (ingredientID) => {
-                        return this.props.ingredients.find(ingredient => ingredient.id === ingredientID);
+                        return this.props.ingredients.list.find(ingredient => ingredient.id === ingredientID);
                     }
                 ) : undefined;
     }
 
     render() {
-        console.log(this.props);
         const ingredients =  this.selectIngredients();
-        console.log(ingredients);
+
         return (
             <Container style={{display: 'flex', flexWrap: 'no-wrap', justifyContent: 'center', alignItems: 'center'}}>
                 <Card style={{margin: '0.5rem 1rem 0.5rem 0.5rem', }}>

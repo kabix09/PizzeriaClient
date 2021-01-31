@@ -14,11 +14,12 @@ export const epic = action$ => action$.pipe(
         .pipe(
             switchMap(response => response.json()),
             map(data => action.onSuccess(data)),
-            catchError(error => of({
-                type: FETCH_DATA_ERROR,
-                payload: error,
-                error: true
-              }))
+            catchError(error => of(action.onFailure(
+                {
+                    type: FETCH_DATA_ERROR,
+                    payload: error
+                }
+            )))
         )
     )
 );

@@ -1,5 +1,10 @@
 import * as pizzaActions from './pizza.constants.js';
 
+export const endAction = (object) => ({
+    type: object.type,
+    payload: object.payload
+});
+
 // Action creator
 export const initPizzas = () => ({
     type: pizzaActions.INIT_PIZZAS
@@ -13,5 +18,6 @@ export const setPizzas = pizzas => ({
 export const fetchPizzas = {
     type: pizzaActions.FETCH_PIZZAS,
     source: 'http://localhost:3333/api/pizza',
-    onSuccess: setPizzas
+    onSuccess: setPizzas,
+    onFailure: endAction
 };

@@ -1,5 +1,9 @@
 import * as ingredientActions from './ingredient.constants.js';
 
+export const endAction = (object) => ({
+    type: object.type,
+    payload: object.payload
+});
 // Action creator
 export const initIngredients = () => ({
     type: ingredientActions.INIT_INGREDIENTS
@@ -13,8 +17,9 @@ export const setIngredients = ingredients => ({
 export const fetchIngredients = {
     type: ingredientActions.FETCH_INGREDIENTS,
     source: 'http://localhost:3333/api/ingredient',
-    onSuccess: setIngredients
-};
+    onSuccess: setIngredients,
+    onFailure: endAction
+}
 
 // many names in array
 export const getIngredientByName = (name) => ({

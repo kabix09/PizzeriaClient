@@ -1,4 +1,5 @@
 import * as ingredientActions from './ingredient.constants';
+import { combineReducers } from 'redux';
 
 const initState = {
     ingredients: JSON.parse('[]')
@@ -24,4 +25,24 @@ const reducer = (state = initState.ingredients, action) => {
     }
 }
 
-export default reducer;
+const loadingReducer = (state = {isLoading: false}, action) => {
+    switch (action.type) {
+        case ingredientActions.FETCH_INGREDIENTS:
+            return { isLoading: true };
+
+        case ingredientActions.SET_INGREDIENTS:
+            return { isLoading: false };
+    
+        case ingredientActions.FETCH_DATA_ERROR:
+            {
+                console.log(action);
+            return { isLoading: false };
+            }
+        default:
+            return state;
+    }
+}
+export default combineReducers({
+    list: reducer,
+    dataState: loadingReducer
+});

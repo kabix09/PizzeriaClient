@@ -9,7 +9,8 @@ const { Component } = require("react");
 
 const mapStateToProps = (state) => {
     return {
-        pizzas: state.pizzas
+        pizzas: state.pizzas.list,
+        dataState: state.pizzas.dataState
     }
 }
 
@@ -17,6 +18,7 @@ class Menu extends Component {
 
     render()
     {
+        console.log(this.props);
         const currentPizza = 
             (this.props.pizzas !== undefined  && this.props.pizzas.length > 0) 
                 ? this.props.pizzas.find(element => (element.name.toLowerCase() === this.props.match.params.name)) 
@@ -31,19 +33,27 @@ class Menu extends Component {
                                 <Card.Group centered>
                                     <Header as='h1' style={{textAlign: 'center'}}>Pizzas menu:</Header>
                                     {
-                                        (this.props.pizzas !== undefined && this.props.pizzas.length > 0) ? 
-                                            this.props.pizzas.map(
-                                                element =>  <Link to={`/menu/`+element.name.toLowerCase()} key={Math.random()} style={{margin: '5px'}}>
-                                                                <Label name={element.name}/>
-                                                            </Link>
-                                            ): 
+                                        (this.props.pizzas === undefined || this.props.pizzas.length === 0 ) ?
                                             <Segment raised style={{ width: '20rem', height: '25rem', display: 'flex', justifyContent: 'space-around', alignItems: 'center',
-                                                                     WebkitBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
-                                                                     MozBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
-                                                                     boxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)' }}>
-                                                <Loader type="Circles" color="#00BFFF" height={80} width={80}/>
+                                                                    WebkitBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
+                                                                    MozBoxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)', 
+                                                                    boxShadow: '8px 10px 20px 0px rgba(0,0,0,0.3)' }}>
+                                                {
+                                                    (this.props.dataState.isLoading) ? 
+                                                        <Loader type="Circles" color="#00BFFF" height={80} width={80}/>
+                                                    :
+                                                        <Header as='h2'>
+                                                            Pizza no loaded
+                                                        </Header>
+                                                }
                                             </Segment>
-                                    }    
+                                        :
+                                        this.props.pizzas.map(
+                                            element =>  <Link to={`/menu/`+element.name.toLowerCase()} key={Math.random()} style={{margin: '5px'}}>
+                                                            <Label name={element.name}/>
+                                                        </Link>)
+                                    }
+                                    
                                 </Card.Group>
                             </Grid.Column>
 

@@ -1,3 +1,5 @@
+import { act } from '@testing-library/react';
+import { combineReducers } from 'redux';
 import * as pizzaActions from './pizza.constants';
 
 const initState = {
@@ -24,4 +26,25 @@ const reducer = (state = initState.pizzas, action) => {
     }
 }
 
-export default reducer;
+const loadingReducer = (state = {isLoading: false}, action) => {
+    switch (action.type) {
+        case pizzaActions.FETCH_PIZZAS:
+            return { isLoading: true };
+
+        case pizzaActions.SET_PIZZAS:
+            return { isLoading: false };
+    
+        case pizzaActions.FETCH_DATA_ERROR:
+            {
+                console.log(action);
+            return { isLoading: false };
+            }
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    list: reducer,
+    dataState: loadingReducer
+});
