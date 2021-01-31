@@ -11,7 +11,7 @@ export default combineReducers({
   label: labelReducer,
   pizzas: pizzaReducer,
   ingredients: ingredientReducer,
-  errors: errorReducer,
+  //errors: errorReducer,
   basket: basketReducer,
   price: priceReducer
 });
