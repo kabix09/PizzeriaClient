@@ -83,7 +83,7 @@ class BasketContainer extends Component {
 
     render(){
         const {isLoading} = this.state;
-
+        
         return (
             <Container>
                 <Grid columns={2}>
@@ -99,8 +99,7 @@ class BasketContainer extends Component {
                     </Grid.Column>
                     <Grid.Column style={{marginTop: '4rem'}}>
                         <Header as='h2' style={{textAlign: 'center'}}>Order Pizza</Header>
-                        <OrderForm/>
-                        
+                        <OrderForm isBasketEmpty={ this.props.basket.length === 0 ? true:  false}/>
                     </Grid.Column>
                 </Grid>
             </Container>

@@ -141,7 +141,7 @@ class OrderForm extends Component{
                         <UI.Form.Button floated='right'
                             type="submit"
                             className="btn btn-primary btn-block"
-                            disabled={isSubmitting}
+                            disabled={ this.props.isBasketEmpty || isSubmitting}
                         >
                             {isSubmitting ? "Please wait..." : "Submit"}
                         </UI.Form.Button>
