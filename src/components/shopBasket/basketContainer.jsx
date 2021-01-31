@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Button, Card, Container, Grid} from 'semantic-ui-react';
+import {Button, Card, Container, Grid, Header} from 'semantic-ui-react';
 import BasketElement from './basketElement';
 
 import Loader from 'react-loader-spinner';
+
+import OrderForm from '../form/orderForm';
 
 const mapStateToProps = (state) => {
     return {
@@ -96,16 +98,20 @@ class BasketContainer extends Component {
                         </Card.Group>
                     </Grid.Column>
                     <Grid.Column style={{marginTop: '4rem'}}>
-                        <Button onClick={this.submitOrder} disabled={isLoading}>
-                        {
-                            isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />:<span>Zamów</span>
-                        }
-                        </Button>
+                        <Header as='h2' style={{textAlign: 'center'}}>Order Pizza</Header>
+                        <OrderForm/>
+                        
                     </Grid.Column>
                 </Grid>
             </Container>
         );
     }
 }
-
+/**
+ * <Button onClick={this.submitOrder} disabled={isLoading}>
+                        {
+                            isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />:<span>Zamów</span>
+                        }
+                        </Button>
+ */
 export default connect(mapStateToProps)(BasketContainer);
