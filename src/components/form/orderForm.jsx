@@ -1,7 +1,16 @@
 import { Component } from "react";
+import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup  from 'yup';
 import * as UI from 'semantic-ui-react';
+import Loader from 'react-loader-spinner';
+
+const mapStateToProps = (state) => {
+    return {
+        basket: state.basket,
+        price: state.price
+    }
+}
 
 class OrderForm extends Component{
     constructor(props)
@@ -15,10 +24,11 @@ class OrderForm extends Component{
                 phoneNumber: "",
                 town: "",
                 address: ""
-            }
+            },
+            isLoading: false
         }
     }
-
+    
     orderValidationShema = () => Yup.object().shape({
         name: Yup.string()
           .min(3, "Name is too short!")
@@ -45,21 +55,70 @@ class OrderForm extends Component{
             .required("Address is required")
       });
 
-      
-    submitForm = (formValues) => {
-        console.log(formValues);
-    };
+    buildOrder = () => {
+        const pizzas = this.props.basket.reduce(
+            (result, currentElement, index, inputArray) => {
+                for(let i=0; i < currentElement.count; i++)
+                {
+                    result = result.concat([currentElement.value]);
+                }
+                return result;
+            }, []
+        );
+
+        const sauces = this.props.sauce ? this.props.sauce : undefined;
+        const price = this.props.price.value;
+
+        if(sauces !== undefined)
+            return {pizza: pizzas, sauce: sauces, total: price};
+        else
+            return {pizza: pizzas, total: price};
+    }
+
+    submitForm = () => {
+        this.setState({isLoading: true});
+
+        // build order object
+        const order = this.buildOrder();
+
+        // set requst 
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(order)
+        };
+
+        // execute order request 
+        fetch('http://localhost:3333/api/order', requestOptions)
+            .then(async response => {
+                const data = await response.json();
+
+                if(!response.ok)
+                {
+                    return Promise.reject(data.status + " - " + data.message)
+                }
+
+                    console.log(response);
+                this.setState({isLoading: false});
+
+                // redirec to / page
+                this.props.history.push('/');  
+            })
+            .catch(error => {
+                console.error(error);
+            });            
+    }     
 
     render()
-    { 
+    {
+        const { isLoading } = this.state;
+
         return (
-            
             <Formik
                 initialValues = {this.state.initialValues}
                 validationSchema={this.orderValidationShema}
-                onSubmit = {async (fields) => {this.submitForm(fields);}}
-            >
-                
+                onSubmit = {async () => {this.submitForm();}}
+            > 
                 {({ isSubmitting }) => (
                     
                     <Form className="ui form">
@@ -71,7 +130,7 @@ class OrderForm extends Component{
                                     name="name"
                                     placeholder="Enter name"
                                 />
-                                    <ErrorMessage name="name" component="div" style={{text: "red"}} />
+                                    <ErrorMessage name="name" component="div" style={{color: "red"}}/>
                             </UI.Form.Field>                 
 
                             <UI.Form.Field>
@@ -81,7 +140,7 @@ class OrderForm extends Component{
                                     name="surename"
                                     placeholder="Enter surename"
                                 />
-                                <ErrorMessage name="surename" component="div" className="invalid-feedback" />
+                                <ErrorMessage name="surename" component="div" style={{color: "red"}} />
                             </UI.Form.Field>
                         </UI.Form.Group>
 
@@ -93,7 +152,7 @@ class OrderForm extends Component{
                                     type="text" 
                                     placeholder="example@email.com"
                                 />
-                                <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                                <ErrorMessage name="email" component="div" style={{color: "red"}} />
                             </UI.Form.Field>
 
                             <UI.Form.Field>
@@ -103,7 +162,7 @@ class OrderForm extends Component{
                                     type="tel" 
                                     placeholder="000 000 000"
                                 />
-                                <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
+                                <ErrorMessage name="phoneNumber" component="div" style={{color: "red"}} />
                             </UI.Form.Field>
                         </UI.Form.Group>
 
@@ -115,7 +174,7 @@ class OrderForm extends Component{
                                     type="text" 
                                     placeholder="Poznan"
                                 />
-                                <ErrorMessage name="town" component="div" className="invalid-feedback" />
+                                <ErrorMessage name="town" component="div" style={{color: "red"}} />
                             </UI.Form.Field>
 
                             <UI.Form.Field width={10}>
@@ -125,24 +184,24 @@ class OrderForm extends Component{
                                     type="text" 
                                     placeholder="Enter street or estate"
                                 />
-                                <ErrorMessage name="address" component="div" className="invalid-feedback" />
+                                <ErrorMessage name="address" component="div" style={{color: "red"}} />
                             </UI.Form.Field>
                         </UI.Form.Group>
 
-                        <UI.Form.Button floated='right'
+                        <UI.Form.Button primary floated='right'
                             type="submit"
-                            className="btn btn-primary btn-block"
-                            disabled={ this.props.isBasketEmpty || isSubmitting}
+                            
+                            disabled={ (this.props.basket.length === 0 ) || isSubmitting || isLoading}
                         >
-                            {isSubmitting ? "Please wait..." : "Submit"}
+                            {
+                                isLoading ? <Loader type="TailSpin" color="#00BFFF" height={50} width={50} /> : <span>Send</span>
+                            }                            
                         </UI.Form.Button>
-                    </Form>
-                    
-                    
+                    </Form>    
                 )}
-                </Formik>
-            
+            </Formik>
         );
     }
 }
-export default OrderForm;
+
+export default connect(mapStateToProps)(OrderForm);
