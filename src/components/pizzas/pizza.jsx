@@ -6,9 +6,10 @@ import * as basketActions from '../../store/data/basket/basket.actions';
 
 const { Component } = require("react");
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        ingredients: state.ingredients
+        ingredients: state.ingredients,
+        pizza: state.pizzas.list.find(pizza => pizza.id === ownProps.id)
     }
 }
 
@@ -60,6 +61,7 @@ class Pizza extends Component
     render()
     {
         console.log(this.props);
+        
         const pizzaIngredients = this.selectIngredients();
         
         return(

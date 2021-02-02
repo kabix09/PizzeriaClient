@@ -7,22 +7,32 @@ import Pizza from './pizzas/pizza';
 import Loader from 'react-loader-spinner';
 const { Component } = require("react");
 
+
 const mapStateToProps = (state) => {
     return {
         pizzas: state.pizzas.list,
-        dataState: state.pizzas.dataState
+        dataState: state.pizzas.dataState,
     }
 }
 
 class Menu extends Component {
 
+    markedPizza = (pizzaName) => {
+        return (this.props.pizzas !== undefined && this.props.pizzas.length > 0)
+                ? this.props.pizzas.reduce(
+                    (result, currentItem) =>
+                    {
+                        if(currentItem.name.toLowerCase() === pizzaName)
+                            result = currentItem.id;
+
+                        return result;   
+                    }, undefined)
+                : undefined;  
+    };
+
     render()
     {
-        console.log(this.props);
-        const currentPizza = 
-            (this.props.pizzas !== undefined  && this.props.pizzas.length > 0) 
-                ? this.props.pizzas.find(element => (element.name.toLowerCase() === this.props.match.params.name)) 
-                : undefined;
+        const currentPizza = this.markedPizza(this.props.match.params.name);
 
         return (
             <React.Fragment>
@@ -48,12 +58,11 @@ class Menu extends Component {
                                                 }
                                             </Segment>
                                         :
-                                        this.props.pizzas.map(
-                                            element =>  <Link to={`/menu/`+element.name.toLowerCase()} key={Math.random()} style={{margin: '5px'}}>
-                                                            <Label name={element.name}/>
-                                                        </Link>)
+                                            this.props.pizzas.map(
+                                                element =>  <Link to={`/menu/`+element.name.toLowerCase()} key={Math.random()} style={{margin: '5px'}}>
+                                                                <Label name={element.name}/>
+                                                            </Link>)
                                     }
-                                    
                                 </Card.Group>
                             </Grid.Column>
 
@@ -64,7 +73,8 @@ class Menu extends Component {
                                 <Card.Group centered>
                                     {
                                         (currentPizza !== undefined) ?
-                                            <Pizza pizza={currentPizza} style={{margin: 'auto'}}/>:
+                                            <Pizza style={{margin: 'auto'}} id={currentPizza}/>
+                                        :
                                             <Segment raised style={{ width: '25rem', height: '18rem', marginTop: '5rem', display: 'flex', justifyContent: 'space-around', alignItems: 'center',
                                                                         WebkitBoxShadow: '10px 10px 5px 0px rgba(0,0,0,0.3)', 
                                                                         MozBoxShadow: '10px 10px 5px 0px rgba(0,0,0,0.3)', 

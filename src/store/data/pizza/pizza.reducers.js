@@ -1,4 +1,3 @@
-import { act } from '@testing-library/react';
 import { combineReducers } from 'redux';
 import * as pizzaActions from './pizza.constants';
 
@@ -12,11 +11,6 @@ const reducer = (state = initState.pizzas, action) => {
         case pizzaActions.SET_PIZZAS:
         {
             return Object.assign([], state, action.payload);
-        }
-
-        case pizzaActions.FETCH_BY_NAME:
-        {
-            return state.filter(pizza => pizza.name.toLowerCase() === action.payload);
         }
 
         default:
@@ -35,10 +29,8 @@ const loadingReducer = (state = {isLoading: false}, action) => {
             return { isLoading: false };
     
         case pizzaActions.FETCH_DATA_ERROR:
-            {
-                console.log(action);
             return { isLoading: false };
-            }
+    
         default:
             return state;
     }
