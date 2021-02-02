@@ -6,23 +6,46 @@ import * as basketActions from '../../store/data/basket/basket.actions';
 
 const mapStateToProps = (state) => {
     return {
-        ingredients: state.ingredients
+        ingredients: (state.ingredients.list.length > 0) ? state.ingredients.list : undefined
     }
 }
 
 class BasketElement extends Component{
 
     selectIngredients = () => {
-        return (this.props.ingredients !== undefined)? 
+        return (this.props.ingredients !== undefined) ? 
                 this.props.product.value.ingredients.map(
                     (ingredientID) => {
-                        return this.props.ingredients.list.find(ingredient => ingredient.id === ingredientID);
+                        return this.props.ingredients.find(ingredient => ingredient.id === ingredientID);
                     }
                 ) : undefined;
     }
 
+    reduceElements = (inputArray) => {
+        let ingredientsArray = [];
+    
+        if(!inputArray)
+            return undefined;
+
+        inputArray.forEach(ingredient => {
+            var ingredientReference = ingredientsArray.find(element => (element.key === ingredient.id));
+            if(ingredientReference)
+            {
+                ingredientReference.count++;
+            }else{
+                ingredientsArray.push({
+                    key: ingredient.id,
+                    value: Object.assign({}, ingredient),
+                    count: 1
+                })
+            }
+        });
+
+        return ingredientsArray;
+    }
+
     render() {
-        const ingredients =  this.selectIngredients();
+        const ingredients = this.reduceElements(this.selectIngredients());
 
         return (
             <Container style={{display: 'flex', flexWrap: 'no-wrap', justifyContent: 'center', alignItems: 'center'}}>
@@ -40,8 +63,12 @@ class BasketElement extends Component{
                                     <List bulleted>
                                     {
                                         ingredients !== undefined &&
-                                        ingredients.map(
-                                                ingredient => ( ingredient !== undefined && <List.Item key={Math.random()}>{ingredient.name}</List.Item>))
+                                        ingredients.map(ingredient => ( ingredient !== undefined &&
+                                                                            <List.Item key={Math.random()}>
+                                                                                {`${ingredient.count}x - ${ingredient.value.name}`}
+                                                                            </List.Item>
+                                                                        )
+                                                        )
                                     }
                                     </List>          
                                 }
