@@ -8,7 +8,7 @@ const { Component } = require("react");
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        ingredients: state.ingredients,
+        ingredients: (state.ingredients.list.length > 0 ) ? state.ingredients.list : undefined,
         pizza: state.pizzas.list.find(pizza => pizza.id === ownProps.id)
     }
 }
@@ -25,9 +25,9 @@ class Pizza extends Component
     }
 
     selectIngredients = () => {
-        return (this.props.ingredients.list !== undefined  && this.props.pizza !== undefined) ? 
+        return (this.props.ingredients !== undefined && this.props.pizza !== undefined) ? 
             this.props.pizza.ingredients.map((pizzaIngredient) => {
-                return this.props.ingredients.list.find(ingredient => ingredient.id === pizzaIngredient);
+                return this.props.ingredients.find(ingredient => ingredient.id === pizzaIngredient);
             }) : undefined;
     }
     
@@ -60,8 +60,6 @@ class Pizza extends Component
 
     render()
     {
-        console.log(this.props);
-        
         const pizzaIngredients = this.selectIngredients();
         
         return(
