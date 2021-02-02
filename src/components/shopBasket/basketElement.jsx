@@ -53,7 +53,7 @@ class BasketElement extends Component{
                     <Card.Content>
                         <Card.Header style={{textAlign: 'center'}}>{this.props.product.value.name}</Card.Header>
                         <Card.Description>
-                            Cena: {this.props.product.value.price} zl
+                            Price: {this.props.product.value.price} zl
                         
                             <Popup 
                                 trigger={<Icon name='info circle' size='large' style={{float: 'right'}}/>}

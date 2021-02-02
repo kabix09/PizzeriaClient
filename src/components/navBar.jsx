@@ -31,7 +31,7 @@ class NavBar extends Component
         super(props);
 
         this.state = {
-            link: ['menu', 'koszyk'],
+            link: ['menu', 'basket'],
             activeItem: this.props.activeItem.name
         } 
         

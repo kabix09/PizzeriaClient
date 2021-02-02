@@ -44,7 +44,7 @@ class Pizza extends Component
                 open={this.state.modalState}
                 trigger={ 
                     <a style={{fontStyle: 'italic', textDecoration: 'underline'}}>
-                        Personalizuj
+                        Personalize
                     </a>
                 }
             >
@@ -67,7 +67,7 @@ class Pizza extends Component
                 <Card.Content style={{position: 'relative'}}>
                     <Card.Header style={{textAlign: 'center'}}>{this.props.pizza.name}</Card.Header>
                     <Card.Description>
-                        Składniki:
+                        Ingredients:
                         <ul style={{maxHeight: '150px', overflow: 'auto'}}>
                         {
                             pizzaIngredients !== undefined &&
@@ -85,12 +85,12 @@ class Pizza extends Component
                 </Card.Content>
                 
                 <Card.Content extra>
-                    Cena: {this.props.pizza.price} zl
+                    Price: {this.props.pizza.price} zl
 
                     <Button inverted primary floated="right" onClick={(e) => {
                         this.addToBasket(this.props.pizza, e);
                     }}>
-                        Dodaj
+                        Add
                     </Button>                 
                 </Card.Content> 
             </Card>

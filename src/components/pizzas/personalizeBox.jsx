@@ -97,7 +97,7 @@ class PersonalizeBox extends Component {
                                 this.props.close();
                             }}
                         >
-                            Dodaj
+                            Add
                         </Button>
                 </Card.Content>
             </Card>

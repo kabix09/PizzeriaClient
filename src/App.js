@@ -25,7 +25,7 @@ class App extends Component
           <Switch>
             <Route path="/" exact component={Home}/>
             <Route path="/menu/:name?" render={(props) => (<Menu {...props} key={Math.random()}/>)}/>
-            <Route path="/koszyk" component={BasketContainer}/>
+            <Route path="/basket" component={BasketContainer}/>
             
             <Redirect to="/"/>
           </Switch>
@@ -34,5 +34,5 @@ class App extends Component
     );
   };
 }
-/* render={(props )=> (<Menu {...props} key={Math.random()}/>)} -> render nowego klucza zmusza do odświerzenia... */
+
 export default App;
