@@ -13,18 +13,19 @@ const mapStateToProps = (state) => {
 class BasketElement extends Component{
 
     selectIngredients = () => {
-        return (this.props.ingredients !== undefined) ? 
+        return (this.props.ingredients !== undefined && this.props.product !== undefined) ? 
+                // suppose, check if ids in value.ingrenients exists in ingredients uuid
                 this.props.product.value.ingredients.map(
                     (ingredientID) => {
                         return this.props.ingredients.find(ingredient => ingredient.id === ingredientID);
                     }
-                ) : undefined;
+                ) : [];
     }
 
     reduceElements = (inputArray) => {
         let ingredientsArray = [];
     
-        if(!inputArray)
+        if(!inputArray || inputArray.includes(undefined))
             return undefined;
 
         inputArray.forEach(ingredient => {
