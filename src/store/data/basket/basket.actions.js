@@ -4,6 +4,9 @@ export const initBasket = {
     type: basketActions.INIT_BASKET
 }
 
+export const clearBasket = {
+    type: basketActions.CLEAR_BASKET
+}
 // Action creator
 export const addProduct = product => ({
     type: basketActions.ADD_PRODUCT,

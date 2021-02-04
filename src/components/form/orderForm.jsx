@@ -5,6 +5,9 @@ import * as Yup  from 'yup';
 import * as UI from 'semantic-ui-react';
 import Loader from 'react-loader-spinner';
 
+import { store } from '../../store';
+import { setLabel } from '../../store/data/label/label.actions';
+import {clearBasket} from '../../store/data/basket/basket.actions';
 const mapStateToProps = (state) => {
     return {
         basket: state.basket,
@@ -101,6 +104,10 @@ class OrderForm extends Component{
                     console.log(response);
                 this.setState({isLoading: false});
 
+                // clear basket store
+                store.dispatch(clearBasket);
+                // save redirect sub path
+                store.dispatch(setLabel(""));
                 // redirec to / page
                 this.props.history.push('/');  
             })

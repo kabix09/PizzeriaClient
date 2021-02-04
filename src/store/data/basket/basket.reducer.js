@@ -1,6 +1,7 @@
 import * as basketActions from './basket.constants';
 import { loadState } from '../../../localStorage/load';
 import { saveState } from '../../../localStorage/save';
+import { removeState } from '../../../localStorage/remove';
 
 const initState = {
     products: []
@@ -53,12 +54,23 @@ function decrement(inputArray, product)
     return newArray;
 }
 
+function clear()
+{
+    removeState('basket');
+}
+
 const reducer = (state = initState.products, action) => {
     switch(action.type)
     {
         case basketActions.INIT_BASKET:
         {
             return Object.assign([], state, loadState('basket'));
+        }
+
+        case basketActions.CLEAR_BASKET:
+        {
+            clear();
+            return [];
         }
 
         case basketActions.ADD_PRODUCT:
