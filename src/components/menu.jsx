@@ -33,7 +33,6 @@ class Menu extends Component {
     render()
     {
         const currentPizza = this.markedPizza(this.props.match.params.name);
-
         return (
             <React.Fragment>
                 <Container style={{marginTop: "4rem"}}>

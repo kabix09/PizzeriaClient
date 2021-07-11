@@ -17,7 +17,7 @@ export const setPizzas = pizzas => ({
 
 export const fetchPizzas = {
     type: pizzaActions.FETCH_PIZZAS,
-    source: 'http://localhost:3333/api/pizza',
+    source: 'api/pizza',
     onSuccess: setPizzas,
     onFailure: endAction
 };

@@ -16,7 +16,7 @@ export const setIngredients = ingredients => ({
 
 export const fetchIngredients = {
     type: ingredientActions.FETCH_INGREDIENTS,
-    source: 'http://localhost:3333/api/ingredient',
+    source: 'api/ingredient',
     onSuccess: setIngredients,
     onFailure: endAction
 }

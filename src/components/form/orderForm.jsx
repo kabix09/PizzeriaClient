@@ -73,9 +73,9 @@ class OrderForm extends Component{
         const price = this.props.price.value;
 
         if(sauces !== undefined)
-            return {pizza: pizzas, sauce: sauces, total: price};
+            return {pizzas: pizzas, sauces: sauces, price: price};
         else
-            return {pizza: pizzas, total: price};
+            return {pizzas: pizzas, sauces: [], price: price};
     }
 
     submitForm = () => {
@@ -83,6 +83,8 @@ class OrderForm extends Component{
 
         // build order object
         const order = this.buildOrder();
+        
+        console.log(order);
 
         // set requst 
         const requestOptions = {
@@ -92,7 +94,7 @@ class OrderForm extends Component{
         };
 
         // execute order request 
-        fetch('http://localhost:3333/api/order', requestOptions)
+        fetch('/api/order', requestOptions)
             .then(async response => {
                 const data = await response.json();
 
@@ -101,7 +103,6 @@ class OrderForm extends Component{
                     return Promise.reject(data.status + " - " + data.message)
                 }
 
-                    console.log(response);
                 this.setState({isLoading: false});
 
                 // clear basket store
