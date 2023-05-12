@@ -35,6 +35,8 @@ Defaultly, application should run on `localhost:3000` address.
 * Add a selection of sauces 
 * Using thunk to save basket in lcoal storage
 * Authenticate user with JWT token
-
+**EDIT 12.05.2023**
+- przenieść adresy API do `.env`
+- dodać JWT z kluczem unikalnym dla aplikacji któr będzie wywyłąny z rządaniem (autoryzuj aplikacje klienta) w celu zuyskania tokenu JWT dla przeglądarki, stosoaneg do uwierzytelniania rządań :D fajny feature :DD 
 ## Sources
 Initially this application was written as part of a student project to pass the subject where we got fully functional rest api [server](https://github.com/DzixxxVizlib/UAM-WMI-NFW). Currently, it is a client part of another [project](https://github.com/kabix09/PizzeriaServer).

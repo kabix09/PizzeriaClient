@@ -1,6 +1,5 @@
 import { Card } from 'semantic-ui-react'
-
-const { Component } = require("react");
+import React, { Component } from "react";
 
 class Ingredient extends Component
 {    
@@ -10,7 +9,7 @@ class Ingredient extends Component
 
     render()
     {
-        return(
+        return(<React.Fragment>
             <Card>
                 <Card.Content>
                     <Card.Header style={{textAlign: 'center'}}>{this.state.ingredient.name}</Card.Header>
@@ -21,7 +20,7 @@ class Ingredient extends Component
                     </span>
                 </Card.Content>
             </Card>
-        );
+            </React.Fragment>);
     }
 }
 

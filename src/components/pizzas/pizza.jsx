@@ -1,10 +1,9 @@
+import React, {Component} from 'react';
 import { Card, Button, Modal} from 'semantic-ui-react'
 import PersonalizeBox from './personalizeBox';
 import { connect } from 'react-redux';
 import { store } from '../../store';
 import * as basketActions from '../../store/data/basket/basket.actions'; 
-
-const { Component } = require("react");
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -37,7 +36,7 @@ class Pizza extends Component
     }
 
     PersonalizeModal = () => {
-        return(
+        return(<React.Fragment>
             <Modal
                 onClose={() => this.setState({modalState: false})}
                 onOpen={() => this.setState({modalState: true})}
@@ -55,14 +54,14 @@ class Pizza extends Component
                     close={() => this.setState({modalState: false})}
                 />
             </Modal>
-        );
+            </React.Fragment>);
     }
 
     render()
     {
         const pizzaIngredients = this.selectIngredients();
         
-        return(
+        return(<React.Fragment>
             <Card style={{height: '300px'}}>
                 <Card.Content style={{position: 'relative'}}>
                     <Card.Header style={{textAlign: 'center'}}>{this.props.pizza.name}</Card.Header>
@@ -94,7 +93,7 @@ class Pizza extends Component
                     </Button>                 
                 </Card.Content> 
             </Card>
-        );
+            </React.Fragment>);
     }
 }
 

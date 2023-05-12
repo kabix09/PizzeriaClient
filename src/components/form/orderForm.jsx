@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup  from 'yup';
@@ -121,7 +121,7 @@ class OrderForm extends Component{
     {
         const { isLoading } = this.state;
 
-        return (
+        return (<React.Fragment>
             <Formik
                 initialValues = {this.state.initialValues}
                 validationSchema={this.orderValidationShema}
@@ -208,7 +208,7 @@ class OrderForm extends Component{
                     </Form>    
                 )}
             </Formik>
-        );
+            </React.Fragment>);
     }
 }
 

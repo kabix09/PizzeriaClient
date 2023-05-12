@@ -1,10 +1,10 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import {Card, Button} from 'semantic-ui-react';
 
 class IngredientLabel extends Component{
 
     render(){
-        return(
+        return(<React.Fragment>
             <Card style={{width: '12rem'}}>
                 <Card.Content>
                     <Card.Header>
@@ -24,7 +24,7 @@ class IngredientLabel extends Component{
                 </Card.Content>
                 
             </Card>
-        );
+            </React.Fragment>);
     }
 }
 export default IngredientLabel;
